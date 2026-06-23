@@ -12,3 +12,13 @@ class Tarea(BaseModel):
     prioridad: int = Field(ge=1, le=5)
     completada: bool = Field(default=False)
 
+# GET
+@router.get("")
+def mostrar_tareas():
+    return tareas
+
+# POST
+@router.post("", status_code=status.HTTP_201_CREATED)
+def crear_tarea(tarea: Tarea):
+    tareas.append(tarea.model_dump())
+    return {"mensaje": "se ha creado la tarea exitosamente"}

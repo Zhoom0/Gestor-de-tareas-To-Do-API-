@@ -5,3 +5,8 @@ from routers import tareas
 app = FastAPI()
 
 app.include_router(tareas.router, prefix="/tareas", tags= ["Tareas"])
+
+
+@app.get("/")
+def raiz():
+    return {"mensaje": "holaAAaa"}
