@@ -58,7 +58,7 @@ def mostrar_tareaid(tarea_id: int):
     for tarea in tareas:
         if tarea["id"] == tarea_id:
             return tarea
-    raise HTTPException (status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
 
 # POST
 # Crear tarea
@@ -77,7 +77,7 @@ def actualizar_tarea(tarea_id: int, tarea_nueva: Tarea_actualizar):
             tarea_antigua = tareas[indice].copy()
             tareas[indice] = {**tarea_nueva.model_dump(), "id": tarea_id}
             return {"mensaje": "la tarea se ha modificado exitosamente", "tarea_antigua": tarea_antigua, "tarea_actualizada": tareas[indice]}
-    raise HTTPException(status_code=404, detail="Tarea no encontrada")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
 
 # DELETE
 # Borrar una tarea
@@ -87,4 +87,4 @@ def borrar_tarea(tarea_id: int):
         if tarea["id"] == tarea_id:
             tareas.pop(indice)
             return {"mensaje": "la tarea se ha eliminado exitosamente"}
-    raise HTTPException(status_code=404, detail="Tarea no encontrada")
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
