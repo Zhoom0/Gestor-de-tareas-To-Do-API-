@@ -13,9 +13,18 @@ class Tarea(BaseModel):
     completada: bool = Field(default=False)
 
 # GET
+# TODAS LAS TAREAS
 @router.get("")
 def mostrar_tareas():
     return tareas
+
+# BUSCAR TAREA POR ID
+@router.get("/{tarea_id}")
+def mostrar_tareaid(tarea_id: int):
+    for tarea in tareas:
+        if tarea["id"] == tarea_id:
+            return {"mensaje": "tarea encontrada", "tarea": tarea}
+    raise HTTPException (status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
 
 # POST
 @router.post("", status_code=status.HTTP_201_CREATED)
