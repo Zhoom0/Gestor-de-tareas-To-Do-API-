@@ -42,7 +42,17 @@ class Respuesta_actualizacion(BaseModel):
 def mostrar_tareas():
     return tareas
 
-# BUSCAR TAREA POR ID
+# Mostrar solo tareas completadas
+@router.get("/completadas", response_model=list[Tarea_respuesta])
+def mostrar_completadas():
+    return [tarea for tarea in tareas if tarea["completada"]]
+
+# Mostrar solo tareas no completadas
+@router.get("/no_completadas", response_model=list[Tarea_respuesta])
+def mostrar_no_completadas():
+    return [tarea for tarea in tareas if not tarea["completada"]]
+
+# Buscar tarea por id
 @router.get("/{tarea_id}", response_model=Tarea_respuesta)
 def mostrar_tareaid(tarea_id: int):
     for tarea in tareas:
