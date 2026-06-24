@@ -32,7 +32,7 @@ class Respuesta_actualizacion(BaseModel):
 
 # GET
 # Ver todas las tareas
-@router.get("")
+@router.get("", response_model=list[Tarea_respuesta])
 def mostrar_tareas():
     return tareas
 
