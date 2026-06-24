@@ -12,6 +12,12 @@ class Tarea(BaseModel):
     prioridad: int = Field(ge=1, le=5)
     completada: bool = Field(default=False)
 
+class Tarea_crear(BaseModel):
+    titulo: str = Field(min_length=1, max_length=100)
+    descripcion: str | None = Field(default=None)
+    prioridad: int = Field(ge=1, le=5)
+    completada: bool = Field(default=False)
+
 class Tarea_actualizar(BaseModel):
     titulo: str = Field(min_length=1, max_length=100)
     descripcion: str | None = Field(default=None)
@@ -47,8 +53,9 @@ def mostrar_tareaid(tarea_id: int):
 # POST
 # Crear tarea
 @router.post("", status_code=status.HTTP_201_CREATED)
-def crear_tarea(tarea: Tarea):
-    tareas.append(tarea.model_dump())
+def crear_tarea(tarea: Tarea_crear):
+    nuevo_id = max([t["id"] for t in tareas], default=0) + 1
+    tareas.append({**tarea.model_dump(), "id": nuevo_id})
     return {"mensaje": "se ha creado la tarea exitosamente"}
 
 # PUT
